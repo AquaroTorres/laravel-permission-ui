@@ -10,7 +10,7 @@ return [
      */
     
     'extra_columns' => [
-        
+        'description',
     ],
     
     /**
