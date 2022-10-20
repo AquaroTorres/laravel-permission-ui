@@ -37,7 +37,7 @@ class PermissionsManager extends Component
     ];
 
     /**
-    * Mount
+    * Mount config extra_columns
     */
     public function mount()
     {
