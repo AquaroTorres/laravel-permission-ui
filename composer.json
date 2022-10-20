@@ -1,0 +1,20 @@
+{
+    "name": "aquaro/laravel-permissions-ui",
+    "description": "Bootstrap 5 UI manager for Spatie Laravel Permissions",
+    "type": "project",
+    "require": {
+        "spatie/laravel-permission": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aquaro\\LaravelPermissionsUi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AquaroTorres",
+            "email": "alvarotorres@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}
