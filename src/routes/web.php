@@ -1,6 +1,7 @@
 <?php
 
-use Aquaro\LaravelPermissionsUi\Http\Controllers\PermissionController;
+use Aquaro\LaravelPermissionsUi\Http\Livewire\PermissionsManager;
 
-
-Route::get('permissions',[PermissionController::class,'index']);
+Route::group(['middleware'=> config('permission-ui.middlewares') ], function(){
+    Route::get('permissions',PermissionsManager::class);
+});
