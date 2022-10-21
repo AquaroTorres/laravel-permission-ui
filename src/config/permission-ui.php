@@ -4,12 +4,16 @@ return [
     /**
      * If you add additional columns to migration
      * example:
-     *     'extra_columns' => [
+     *     'permissions_extra_columns' => [
      *         'description',
      *    ],
      */
     
-    'extra_columns' => [
+    'permissions_extra_columns' => [
+        'description',
+    ],
+
+    'roles_extra_columns' => [
         'description',
     ],
     

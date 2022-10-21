@@ -4,8 +4,9 @@ namespace Aquaro\LaravelPermissionsUi;
 
 use Livewire\Livewire;
 use Illuminate\Support\ServiceProvider;
-use Aquaro\LaravelPermissionsUi\Http\Livewire\PermissionsManager;
+use Aquaro\LaravelPermissionsUi\Http\Livewire\UserPermissions;
 use Aquaro\LaravelPermissionsUi\Http\Livewire\RolesManager;
+use Aquaro\LaravelPermissionsUi\Http\Livewire\PermissionsManager;
 
 class PermissionsUiServiceProvider extends ServiceProvider
 {
@@ -32,5 +33,6 @@ class PermissionsUiServiceProvider extends ServiceProvider
 
         Livewire::component('permissions-manager', PermissionsManager::class);
         Livewire::component('roles-manager', RolesManager::class);
+        Livewire::component('user-permissions', UserPermissions::class);
     }
 }

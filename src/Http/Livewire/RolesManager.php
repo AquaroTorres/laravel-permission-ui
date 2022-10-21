@@ -14,7 +14,9 @@ class RolesManager extends Component
     /** Objecto Role */
     public Role $role;
 
-    public $extra_columns;
+    public $permissions_extra_columns;
+    public $roles_extra_columns;
+    public $permissions_selection;
 
     protected function rules()
     {
@@ -23,7 +25,7 @@ class RolesManager extends Component
             'role.guard_name'  => 'required',
         ];
 
-        foreach(config('permission-ui.extra_columns') as $column)
+        foreach(config('permission-ui.roles_extra_columns') as $column)
         {
             $rules['role.'.$column] = 'string';
         }
@@ -37,11 +39,13 @@ class RolesManager extends Component
     ];
 
     /**
-    * Mount config extra_columns
+    * Mount config roles_extra_columns
     */
     public function mount()
     {
-        $this->extra_columns = config('permission-ui.extra_columns');
+        //$this->role = Role::find(2);
+        $this->roles_extra_columns = config('permission-ui.roles_extra_columns');
+        $this->permissions_extra_columns = config('permission-ui.permissions_extra_columns');
     }
 
     public function index()
@@ -56,6 +60,7 @@ class RolesManager extends Component
             'name' => $role->name, 
             'guard_name' => config('auth.defaults.guard')
         ]);
+        $this->permissions_selection = $this->role->permissions()->pluck('id')->toArray();
         $this->form = true;
     }
 
@@ -63,6 +68,7 @@ class RolesManager extends Component
     {
         $this->validate();
         $this->role->save();
+        $this->role->permissions()->sync($this->permissions_selection);
         $this->index();
     }
 
@@ -74,9 +80,11 @@ class RolesManager extends Component
     public function render()
     {
         $roles = Role::all();
+        $permissions = Permission::all();
 
         return view('permissions-ui::livewire.roles-manager', [
             'roles' => $roles,
+            'permissions' => $permissions,
         ]);
     }
 }

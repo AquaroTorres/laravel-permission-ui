@@ -26,7 +26,7 @@
                         @error('role.name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
 
-                    @foreach($extra_columns as $column)
+                    @foreach($roles_extra_columns as $column)
                     <div class="col-12 col-md-4">
                         <label for="for-description">{{ ucfirst($column) }}</label>
                         <input type="text" wire:model.lazy="role.{{ $column }}" class="form-control">
@@ -44,6 +44,31 @@
                     </div>
 
                 </div>
+
+                <h5 class="mb-3">{{ __('Permissions') }}</h5>
+                <table class="table table-bordered">
+                    <tbody>
+                        @foreach($permissions as $permission)
+                        <tr>
+                            <td width="40">
+                                <input class="form-check-input" type="checkbox" 
+                                    wire:model.defer="permissions_selection" 
+                                    value="{{ $permission->id }}" 
+                                    id="permission_{{ $permission->id }}">
+                            </td>
+                            <td>
+                                <label class="form-check-label" for="permission_{{ $permission->id }}">
+                                    <strong>{{ $permission->name }}</strong> - 
+                                    @foreach($permissions_extra_columns as $column)
+                                    {{ $permission->$column }}
+                                    @endforeach
+                                </label>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
             </div>
         </div>
     @endif
@@ -54,9 +79,10 @@
                 <th width="40"></th>
                 <th>id</th>
                 <th>name</th>
-                @foreach($extra_columns as $column)
+                @foreach($roles_extra_columns as $column)
                 <th>{{ $column }}</th>
                 @endforeach
+                <th>permissions</th>
                 <th width="40"></th>
             </tr>
         </thead>
@@ -69,12 +95,22 @@
                 </td>
                 <td>{{ $role->id }}</td>
                 <td>{{ $role->name }}</td>
-                @foreach($extra_columns as $column)
+                @foreach($roles_extra_columns as $column)
                 <td>{{ $role->$column }}</td>
                 @endforeach
                 <td>
+                    @foreach($role->permissions as $permission)
+                        <li>
+                            <strong>{{ $permission->name }}</strong> - 
+                                @foreach($permissions_extra_columns as $column)
+                                {{ $permission->$column }}
+                                @endforeach
+                        </li>
+                    @endforeach
+                </td>
+                <td>
                     <button type="button" class="btn btn-sm btn-danger" 
-                        onclick="confirm('Are you shure want to delete permision: {{ $role->name }}?') || event.stopImmediatePropagation()" 
+                        onclick="confirm('Are you shure want to delete role: {{ $role->name }}?') || event.stopImmediatePropagation()" 
                         wire:click="delete({{$role}})">
                         <i class="bi bi-trash"></i>
                     </button>

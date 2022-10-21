@@ -26,7 +26,7 @@
                         @error('permission.name') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
 
-                    @foreach($extra_columns as $column)
+                    @foreach($permissions_extra_columns as $column)
                     <div class="col-12 col-md-4">
                         <label for="for-description">{{ ucfirst($column) }}</label>
                         <input type="text" wire:model.lazy="permission.{{ $column }}" class="form-control">
@@ -54,9 +54,10 @@
                 <th width="40"></th>
                 <th>id</th>
                 <th>name</th>
-                @foreach($extra_columns as $column)
+                @foreach($permissions_extra_columns as $column)
                 <th>{{ $column }}</th>
                 @endforeach
+                <th>roles</th>
                 <th width="40"></th>
             </tr>
         </thead>
@@ -69,9 +70,14 @@
                 </td>
                 <td>{{ $permission->id }}</td>
                 <td>{{ $permission->name }}</td>
-                @foreach($extra_columns as $column)
+                @foreach($permissions_extra_columns as $column)
                 <td>{{ $permission->$column }}</td>
                 @endforeach
+                <td>
+                    @foreach($permission->roles as $role)
+                        <li>{{ $role->name }}</li>
+                    @endforeach
+                </td>
                 <td>
                     <button type="button" class="btn btn-sm btn-danger" 
                         onclick="confirm('Are you shure want to delete permision: {{ $permission->name }}?') || event.stopImmediatePropagation()" 

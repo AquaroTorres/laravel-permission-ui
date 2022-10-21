@@ -14,7 +14,8 @@ class PermissionsManager extends Component
     /** Objecto Permission */
     public Permission $permission;
 
-    public $extra_columns;
+    public $permissions_extra_columns;
+    public $roles_extra_columns;
 
     protected function rules()
     {
@@ -23,7 +24,7 @@ class PermissionsManager extends Component
             'permission.guard_name'  => 'required',
         ];
 
-        foreach(config('permission-ui.extra_columns') as $column)
+        foreach(config('permission-ui.permissions_extra_columns') as $column)
         {
             $rules['permission.'.$column] = 'string';
         }
@@ -37,11 +38,12 @@ class PermissionsManager extends Component
     ];
 
     /**
-    * Mount config extra_columns
+    * Mount config permissions_extra_columns
     */
     public function mount()
     {
-        $this->extra_columns = config('permission-ui.extra_columns');
+        $this->roles_extra_columns = config('permission-ui.roles_extra_columns');
+        $this->permissions_extra_columns = config('permission-ui.permissions_extra_columns');
     }
 
     public function index()
