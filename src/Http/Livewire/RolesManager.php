@@ -79,8 +79,8 @@ class RolesManager extends Component
 
     public function render()
     {
-        $roles = Role::all();
-        $permissions = Permission::all();
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::with('roles')->get();
 
         return view('permissions-ui::livewire.roles-manager', [
             'roles' => $roles,

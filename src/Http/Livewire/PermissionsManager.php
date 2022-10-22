@@ -75,7 +75,7 @@ class PermissionsManager extends Component
 
     public function render()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::with('roles')->get();
 
         return view('permissions-ui::livewire.permissions-manager', [
             'permissions' => $permissions,

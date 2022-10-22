@@ -28,8 +28,8 @@ class UserPermissions extends Component
         $this->roles_extra_columns = config('permission-ui.roles_extra_columns');
         $this->permissions_extra_columns = config('permission-ui.permissions_extra_columns');
 
-        $this->permissions = Permission::orderBy('name')->get();
-        $this->roles = Role::orderBy('name')->get();
+        $this->permissions = Permission::with('roles')->orderBy('name')->get();
+        $this->roles = Role::with('permissions')->orderBy('name')->get();
 
         $this->getUserRolesAndPermission();
     }
